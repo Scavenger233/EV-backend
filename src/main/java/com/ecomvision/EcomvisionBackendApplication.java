@@ -1,4 +1,4 @@
-package com.ecomvision.backend;
+package com.ecomvision;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
