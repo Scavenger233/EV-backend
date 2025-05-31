@@ -1,4 +1,4 @@
-package com.ecomvision.backend;
+package com.ecomvision;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
