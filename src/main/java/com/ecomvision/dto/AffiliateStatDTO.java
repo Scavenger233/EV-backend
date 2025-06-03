@@ -11,5 +11,5 @@ import java.util.List;
 public class AffiliateStatDTO {
     private Long id;
     private Long userId; // affiliate's user id
-    private List<String> transactionIds; // list of transaction IDs generated via affiliate link
+    private List<String> affiliateSales; // list of transaction IDs generated via affiliate link
 }

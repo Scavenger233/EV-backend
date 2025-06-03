@@ -33,17 +33,23 @@ public class TransactionServiceImpl implements TransactionService {
                 .map(transaction -> modelMapper.map(transaction, TransactionDTO.class));
     }
 
-    private TransactionDTO convertToDTO(Transaction t) {
+    @Override
+    public List<TransactionDTO> getTransactionsByIds(List<Long> ids) {
+        return transactionRepository.findAllById(ids).stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
+
+    private TransactionDTO convertToDTO(Transaction tx) {
         return TransactionDTO.builder()
-                .id(t.getId())
-                .userId(t.getUser().getId())
-                .cost(t.getCost())
-                .productIds(
-                        t.getProducts().stream()
-                                .map(p -> p.getId().toString())
-                                .collect(Collectors.toList())
-                )
-                .createdAt(t.getCreatedAt().toString())
+                .id(tx.getId())
+                .userId(tx.getUser().getId())
+                .cost(tx.getCost())
+                .createdAt(tx.getCreatedAt().toString())
+                .productIds(tx.getProducts().stream()
+                        .map(p -> p.getId().toString())
+                        .toList())
                 .build();
     }
 }

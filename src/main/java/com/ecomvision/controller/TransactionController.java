@@ -32,4 +32,9 @@ public class TransactionController {
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sort).descending());
         return transactionService.getTransactions(pageable);
     }
+
+    @GetMapping("/batch")
+    public List<TransactionDTO> getTransactionsByIds(@RequestParam List<Long> ids) {
+        return transactionService.getTransactionsByIds(ids);
+    }
 }

@@ -1,25 +1,33 @@
 package com.ecomvision.controller;
-
 import com.ecomvision.dto.AffiliateStatDTO;
-import com.ecomvision.service.AffiliateStatService;
+import com.ecomvision.repository.AffiliateStatRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/affiliate-stats")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class AffiliateStatController {
 
-    private final AffiliateStatService affiliateStatService;
+    private final AffiliateStatRepository affiliateStatRepository;
 
-    /**
-     * GET /api/affiliate-stats
-     * Return list of affiliate sales grouped by user
-     */
-    @GetMapping
-    public List<AffiliateStatDTO> getAllAffiliateStats() {
-        return affiliateStatService.getAllAffiliateStats();
+    @GetMapping("/affiliate-stats")
+    public List<AffiliateStatDTO> getAffiliateStats() {
+        return affiliateStatRepository.findAll().stream()
+                .map(stat -> AffiliateStatDTO.builder()
+                        .id(stat.getId())
+                        .userId(stat.getUser().getId())
+                        .affiliateSales(
+                                stat.getAffiliateSales().stream()
+                                        .map(String::valueOf)
+                                        .collect(Collectors.toList())
+                        )
+                        .build())
+                .toList();
     }
 }

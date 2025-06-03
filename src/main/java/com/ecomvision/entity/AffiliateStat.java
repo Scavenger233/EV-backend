@@ -18,21 +18,12 @@ public class AffiliateStat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /**
-     * Foreign key pointing to the user who is an affiliate.
-     */
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    /**
-     * List of transactions generated through this affiliate.
-     */
-    @ManyToMany
-    @JoinTable(
-            name = "affiliate_stat_transactions",
-            joinColumns = @JoinColumn(name = "affiliate_stat_id"),
-            inverseJoinColumns = @JoinColumn(name = "transaction_id")
-    )
-    private List<Transaction> affiliateSales;
+    @ElementCollection
+    @CollectionTable(name = "affiliate_sales", joinColumns = @JoinColumn(name = "affiliate_stat_id"))
+    @Column(name = "transaction_id")
+    private List<Long> affiliateSales;
 }

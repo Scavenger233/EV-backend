@@ -10,4 +10,6 @@ public interface TransactionService {
     List<TransactionDTO> getAllTransactions();
 
     Page<TransactionDTO> getTransactions(Pageable pageable);
+
+    List<TransactionDTO> getTransactionsByIds(List<Long> ids);
 }

@@ -30,9 +30,9 @@ public class AffiliateStatServiceImpl implements AffiliateStatService {
         return AffiliateStatDTO.builder()
                 .id(stat.getId())
                 .userId(stat.getUser().getId())
-                .transactionIds(
+                .affiliateSales(
                         stat.getAffiliateSales().stream()
-                                .map(tx -> tx.getId().toString())
+                                .map(String::valueOf)
                                 .collect(Collectors.toList())
                 )
                 .build();

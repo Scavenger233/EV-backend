@@ -121,10 +121,16 @@ public class MockDataLoader implements CommandLineRunner {
         if (affiliateStatRepository.count() == 0 && user != null) {
             List<Transaction> transactions = transactionRepository.findAll();
             if (!transactions.isEmpty()) {
+                List<Long> txnIds = transactions.stream()
+                        .limit(3)
+                        .map(Transaction::getId)
+                        .toList();
+
                 AffiliateStat stat = AffiliateStat.builder()
                         .user(user)
-                        .affiliateSales(transactions.subList(0, Math.min(3, transactions.size())))
+                        .affiliateSales(txnIds)
                         .build();
+
                 affiliateStatRepository.save(stat);
             }
         }
