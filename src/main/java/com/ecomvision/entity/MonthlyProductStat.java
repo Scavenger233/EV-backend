@@ -16,7 +16,8 @@ public class MonthlyProductStat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String month;
+    @Column(name = "month_name")
+    private String monthName;
 
     private Integer totalSales;
 
