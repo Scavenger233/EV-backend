@@ -7,7 +7,9 @@ import com.ecomvision.service.OverallStatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,6 +40,30 @@ public class OverallStatServiceImpl implements OverallStatService {
                         .build())
                 .toList();
     }
+
+    @Override
+    public List<MonthlyDataDTO> getMonthlySales() {
+        return overallStatRepository.findAll().stream()
+                .findFirst()
+                .map(stat -> stat.getMonthlyData().stream()
+                        .map(monthly -> new MonthlyDataDTO(
+                                monthly.getMonthName(),
+                                monthly.getTotalSales(),
+                                monthly.getTotalUnits()))
+                        .toList())
+                .orElse(Collections.emptyList());
+    }
+
+    @Override
+    public Map<String, Integer> getSalesByCategory() {
+        return overallStatRepository.findAll()
+                .stream()
+                .findFirst()
+                .map(OverallStat::getSalesByCategory)
+                .orElse(Map.of());
+    }
+
+
 
 
     /**

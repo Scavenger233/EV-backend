@@ -1,12 +1,14 @@
 package com.ecomvision.controller;
 
 import com.ecomvision.dto.DailyDataDTO;
+import com.ecomvision.dto.MonthlyDataDTO;
 import com.ecomvision.dto.OverallStatDTO;
 import com.ecomvision.service.OverallStatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/overall-stats")
@@ -29,5 +31,18 @@ public class OverallStatController {
         System.out.println("📊 [GET] /api/overall-stat/daily triggered");
         return overallStatService.getDailySales();
     }
+
+    @GetMapping("/monthly")
+    public List<MonthlyDataDTO> getMonthlySales() {
+        return overallStatService.getMonthlySales();
+    }
+
+    @GetMapping("/breakdown")
+    public Map<String, Integer> getSalesByCategory() {
+        System.out.println("📊 [GET] /api/overall-stats/breakdown triggered");
+        return overallStatService.getSalesByCategory();
+    }
+
+
 
 }
