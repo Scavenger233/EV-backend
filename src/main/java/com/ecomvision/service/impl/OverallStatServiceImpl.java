@@ -23,6 +23,23 @@ public class OverallStatServiceImpl implements OverallStatService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<DailyDataDTO> getDailySales() {
+        OverallStat stat = overallStatRepository.findAll().stream().findFirst()
+                .orElseThrow(() -> new RuntimeException("No overall stat data found"));
+
+        System.out.println("🔍 OverallStatServiceImpl triggered");
+
+        return stat.getDailyData().stream()
+                .map(d -> DailyDataDTO.builder()
+                        .date(d.getDate())
+                        .totalSales(d.getTotalSales())
+                        .totalUnits(d.getTotalUnits())
+                        .build())
+                .toList();
+    }
+
+
     /**
      * Convert entity to DTO to simplify data exposed to frontend
      */

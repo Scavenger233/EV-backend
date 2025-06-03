@@ -90,10 +90,16 @@ public class MockDataLoader implements CommandLineRunner {
                     new MonthlyData("March", 1081, 8156)
             );
 
-            List<DailyData> dailyData = List.of(
-                    new DailyData("2021-01-02", 4440, 178),
-                    new DailyData("2021-01-03", 9208, 277)
-            );
+            List<DailyData> dailyData = new java.util.ArrayList<>();
+            for (int i = 0; i < 30; i++) {
+                LocalDate date = LocalDate.of(2021, 2, 1).plusDays(i);
+                dailyData.add(DailyData.builder()
+                        .date(date.toString())
+                        .totalSales(2000 + (int)(Math.random() * 3000))
+                        .totalUnits(20 + (int)(Math.random() * 80))
+                        .build());
+            }
+
 
             Map<String, Integer> categorySales = Map.of(
                     "shoes", 6515,
