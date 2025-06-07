@@ -71,20 +71,10 @@ public class OverallStatServiceImpl implements OverallStatService {
      */
     private OverallStatDTO convertToDTO(OverallStat stat) {
         return OverallStatDTO.builder()
-                .id(stat.getId())
                 .totalCustomers(stat.getTotalCustomers())
                 .yearlySalesTotal(stat.getYearlySalesTotal())
                 .yearlyTotalSoldUnits(stat.getYearlyTotalSoldUnits())
                 .year(stat.getStatYear())
-                .monthlyData(stat.getMonthlyData().stream()
-                        .map(m -> new MonthlyDataDTO(m.getMonthName(), m.getTotalSales(), m.getTotalUnits()))
-                        .collect(Collectors.toList()))
-                .dailyData(stat.getDailyData().stream()
-                        .map(d -> new DailyDataDTO(d.getDate(), d.getTotalSales(), d.getTotalUnits()))
-                        .collect(Collectors.toList()))
-                .salesByCategory(stat.getSalesByCategory())
-                .createdAt(stat.getCreatedAt())
-                .updatedAt(stat.getUpdatedAt())
                 .build();
     }
 }
