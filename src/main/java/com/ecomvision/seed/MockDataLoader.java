@@ -86,7 +86,7 @@ public class MockDataLoader implements CommandLineRunner {
         if (overallStatRepository.count() == 0) {
             List<MonthlyData> monthlyData = List.of(
                     new MonthlyData("January", 6166, 17738),
-                    new MonthlyData("February", 9412, 50516),
+                    new MonthlyData("February", 6666, 50516),
                     new MonthlyData("March", 1081, 8156)
             );
 

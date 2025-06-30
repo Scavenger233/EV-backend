@@ -1,6 +1,7 @@
 package com.ecomvision.service;
 
 import com.ecomvision.dto.DailyDataDTO;
+import com.ecomvision.dto.DashboardStatsDTO;
 import com.ecomvision.dto.MonthlyDataDTO;
 import com.ecomvision.dto.OverallStatDTO;
 
@@ -16,4 +17,5 @@ public interface OverallStatService {
 
     Map<String, Integer> getSalesByCategory();
 
+    DashboardStatsDTO getDashboardStats();
 }

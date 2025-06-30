@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.Comparator;
+
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +63,35 @@ public class OverallStatServiceImpl implements OverallStatService {
                 .findFirst()
                 .map(OverallStat::getSalesByCategory)
                 .orElse(Map.of());
+    }
+
+    @Override
+    public DashboardStatsDTO getDashboardStats() {
+        OverallStat stat = overallStatRepository.findAll().get(0);
+
+        MonthlyData lastMonth = stat.getMonthlyData().stream()
+                .max(Comparator.comparingInt(MonthlyData::getTotalSales))
+                .orElse(null);
+
+        DailyData today = stat.getDailyData().stream()
+                .max(Comparator.comparing(DailyData::getDate))
+                .orElse(null);
+
+        return DashboardStatsDTO.builder()
+                .totalCustomers(stat.getTotalCustomers())
+                .yearlySalesTotal(stat.getYearlySalesTotal())
+                .yearlyTotalSoldUnits(stat.getYearlyTotalSoldUnits())
+                .thisMonthStats(lastMonth == null ? null : DashboardStatsDTO.MonthlyStat.builder()
+                        .month(lastMonth.getMonthName())
+                        .totalSales(lastMonth.getTotalSales())
+                        .totalUnits(lastMonth.getTotalUnits())
+                        .build())
+                .todayStats(today == null ? null : DashboardStatsDTO.DailyStat.builder()
+                        .date(today.getDate())
+                        .totalSales(today.getTotalSales())
+                        .totalUnits(today.getTotalUnits())
+                        .build())
+                .build();
     }
 
 

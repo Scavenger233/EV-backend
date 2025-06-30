@@ -1,6 +1,7 @@
 package com.ecomvision.controller;
 
 import com.ecomvision.dto.DailyDataDTO;
+import com.ecomvision.dto.DashboardStatsDTO;
 import com.ecomvision.dto.MonthlyDataDTO;
 import com.ecomvision.dto.OverallStatDTO;
 import com.ecomvision.service.OverallStatService;
@@ -43,6 +44,10 @@ public class OverallStatController {
         return overallStatService.getSalesByCategory();
     }
 
+    @GetMapping("/dashboard")
+    public DashboardStatsDTO getDashboardStats() {
+        return overallStatService.getDashboardStats();
+    }
 
 
 }
