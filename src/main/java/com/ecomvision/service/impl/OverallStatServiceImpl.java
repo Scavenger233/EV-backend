@@ -3,6 +3,7 @@ package com.ecomvision.service.impl;
 import com.ecomvision.dto.*;
 import com.ecomvision.entity.*;
 import com.ecomvision.repository.OverallStatRepository;
+import com.ecomvision.repository.UserRepository;
 import com.ecomvision.service.OverallStatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import java.util.Comparator;
 public class OverallStatServiceImpl implements OverallStatService {
 
     private final OverallStatRepository overallStatRepository;
+    private final UserRepository userRepository;
+
 
     @Override
     public List<OverallStatDTO> getAllOverallStats() {
@@ -93,6 +96,19 @@ public class OverallStatServiceImpl implements OverallStatService {
                         .build())
                 .build();
     }
+
+    @Override
+    public List<GeographyDTO> getGeographyStats() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .filter(u -> u.getCountry() != null)
+                .collect(Collectors.groupingBy(User::getCountry, Collectors.counting()))
+                .entrySet()
+                .stream()
+                .map(entry -> new GeographyDTO(entry.getKey(), entry.getValue().intValue()))
+                .toList();
+    }
+
 
 
 

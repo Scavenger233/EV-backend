@@ -1,9 +1,6 @@
 package com.ecomvision.service;
 
-import com.ecomvision.dto.DailyDataDTO;
-import com.ecomvision.dto.DashboardStatsDTO;
-import com.ecomvision.dto.MonthlyDataDTO;
-import com.ecomvision.dto.OverallStatDTO;
+import com.ecomvision.dto.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +15,6 @@ public interface OverallStatService {
     Map<String, Integer> getSalesByCategory();
 
     DashboardStatsDTO getDashboardStats();
+    List<GeographyDTO> getGeographyStats();
+
 }

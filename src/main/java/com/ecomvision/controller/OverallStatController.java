@@ -1,9 +1,6 @@
 package com.ecomvision.controller;
 
-import com.ecomvision.dto.DailyDataDTO;
-import com.ecomvision.dto.DashboardStatsDTO;
-import com.ecomvision.dto.MonthlyDataDTO;
-import com.ecomvision.dto.OverallStatDTO;
+import com.ecomvision.dto.*;
 import com.ecomvision.service.OverallStatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +45,12 @@ public class OverallStatController {
     public DashboardStatsDTO getDashboardStats() {
         return overallStatService.getDashboardStats();
     }
+
+    @GetMapping("/geography")
+    public List<GeographyDTO> getGeographyStats() {
+        return overallStatService.getGeographyStats();
+    }
+
 
 
 }

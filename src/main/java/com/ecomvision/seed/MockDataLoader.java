@@ -70,6 +70,30 @@ public class MockDataLoader implements CommandLineRunner {
             user = userRepository.findAll().get(0);
         }
 
+        // ---------- GEO DISTRIBUTED USERS ----------
+        if (userRepository.count() <= 1) {
+            List<String> countries = List.of("US", "CN", "FR", "DE", "IE", "JP", "BR", "NG", "IN", "RU");
+
+            for (int i = 0; i < 50; i++) {
+                String country = countries.get(i % countries.size());
+
+                User geoUser = User.builder()
+                        .name("GeoUser" + i)
+                        .email("geo" + i + "@example.com")
+                        .password("demo123")
+                        .city("City" + i)
+                        .state(null)
+                        .country(country)
+                        .occupation("Analyst")
+                        .phoneNumber("100000000" + i)
+                        .role("user")
+                        .build();
+
+                userRepository.save(geoUser);
+            }
+        }
+
+
         // ---------- TRANSACTION ----------
         Transaction txn = null;
         if (transactionRepository.count() == 0 && user != null && product != null) {
