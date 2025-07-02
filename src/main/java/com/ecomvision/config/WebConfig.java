@@ -14,7 +14,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8081", "http://localhost:3000", "https://ev-backend-d9m2.onrender.com")
+                        .allowedOrigins("http://localhost:8081", "http://localhost:3000", "https://ev-frontend-xp8r.onrender.com")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*");
             }
